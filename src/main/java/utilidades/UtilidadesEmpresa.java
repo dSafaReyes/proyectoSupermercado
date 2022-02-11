@@ -8,26 +8,33 @@ import java.util.stream.Collectors;
 public class UtilidadesEmpresa {
 
     public List<Empleado> getEmpleadosPorContrato(Empresa empresa, TipoContrato tipoContrato) {
-        return empresa.getEmpleados().stream().filter(e -> e.getContrato().equals(tipoContrato)).toList();
+        return empresa.getEmpleados().stream()
+                .filter(e -> e.getContrato().getTipoContrato().equals(tipoContrato))
+                .toList();
     }
 
     public List<Empleado> getMileuristasOrdenadosPorSalario(Empresa empresa) {
         Comparator<Empleado> bySueldoAsc = (Empleado e1, Empleado e2) -> Double.compare(e1.getContrato().getSalarioBase(), e2.getContrato().getSalarioBase());
-        return empresa.getEmpleados().stream().filter(e -> e.getContrato().getSalarioBase() >= 1000).sorted(bySueldoAsc).toList();
+        return empresa.getEmpleados().stream()
+                .filter(e -> e.getContrato().getSalarioBase() >= 1000)
+                .sorted(bySueldoAsc)
+                .toList();
     }
 
     public double fondoSalarialEmpresa(Empresa empresa) {
         List<Empleado> empleados = empresa.getEmpleados();
-        return empresa.getEmpleados().stream().mapToDouble(e -> e.getContrato().getSalarioBase()).sum();
+        return empresa.getEmpleados().stream()
+                .mapToDouble(e -> e.getContrato().getSalarioBase())
+                .sum();
     }
 
     public Empleado getMejorPagado(List<Empresa> empresas) {
         Comparator<Empleado> bySueldoAsc = (Empleado e1, Empleado e2) -> Double.compare(e1.getContrato().getSalarioBase(), e2.getContrato().getSalarioBase());
-//        return empresas.stream().map(Empresa::getEmpleados).sorted(bySueldoAsc).max().orElseThrow(NoSuchElementException::new);;
-//        return empresas.stream().sorted(bySueldoAsc).map(empresa -> empresa.getEmpleados()).toList();
-        return null;
+        return empresas.stream()
+                .map(Empresa::getEmpleados)
+                .flatMap(List::stream).toList()
+                .stream().max(bySueldoAsc).orElseThrow(NoSuchElementException::new);
     }
-
 
     public Map<TipoContrato, List<Empleado>> getEmpleadosPorTipoContrato(Empresa empresa) {
 
@@ -55,7 +62,6 @@ public class UtilidadesEmpresa {
 
     }
 
-
     public List<Empleado> getEmpleadosPymePracticas(List<Empresa> empresas) {
         return  empresas.stream()
                 .filter(empresa -> empresa.getTipoEmpresa().equals(TipoEmpresa.PYME))
@@ -67,10 +73,12 @@ public class UtilidadesEmpresa {
                 .toList();
     }
 
+    public Map<Empresa, Empleado> getLosMejorPagadosPorEmpresa(List<Empresa> empresas) {
+        Comparator<Empleado> bySueldoAsc = (Empleado e1, Empleado e2) -> Double.compare(e1.getContrato().getSalarioBase(), e2.getContrato().getSalarioBase());
+        return empresas.stream()
+                .map(Empresa::getEmpleados)
+                .flatMap(List::stream).toList().stream().max(Comparator.comparingDouble((Empleado e) -> e.getContrato().getSalarioBase())).orElseThrow(NoSuchElementException::new).;
 
-
-
-
-
+    }
 
 }
