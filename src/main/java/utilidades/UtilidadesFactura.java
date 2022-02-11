@@ -7,18 +7,10 @@ import java.util.List;
 
 public class UtilidadesFactura {
 
-    // Es vencido debe ser para fechas posteriores a la fecha actual
     public boolean esFacturaVencida(Factura factura) {
         LocalDate fechaVencimiento = factura.getFechaVencimiento();
         LocalDate fechaActual = LocalDate.now();
-
-        if (fechaVencimiento.equals(fechaActual)) {
-            return true;
-        }
-        else if (fechaVencimiento.isAfter(fechaActual)) {
-            return true;
-        }
-        return false;
+        return fechaVencimiento.equals(fechaActual) || fechaVencimiento.isAfter(fechaActual);
     }
 
     public static double calcularBaseFactura(Factura factura) {
@@ -36,10 +28,16 @@ public class UtilidadesFactura {
         return (calcularBaseFactura(factura) - factura.getDescuento())*factura.getIva();
     }
 
+    public Double gasoTotalCliente(List<Factura> facturas, Cliente cliente) {
+        return facturas.stream().mapToDouble(UtilidadesFactura::calcularTotalAPagar).sum();
+    }
+
     public static void main(String[] args) {
         Cliente cliente1 = new Cliente(1, "30278456X", "Marcos", "Ruiz Bellido", "Calle Onza nº 10", TipoCliente.PARTICULAR);
-        Factura factura1 = new Factura(1, "001", 110.0, 10.0, 1.21,0.0, LocalDate.of(2001, 12, 25), true, null, cliente1);
+        Factura factura1 = new Factura(1, "001", 110.0, 10.0, 1.21,0.0, LocalDate.of(2023, 2, 11), true, null, cliente1);
         UtilidadesFactura uf = new UtilidadesFactura();
+        System.out.println("Fecha de vencimiento: " + factura1.getFechaVencimiento());
+        System.out.println("Fecha actual: " + LocalDate.now());
         System.out.println(uf.esFacturaVencida(factura1));
     }
 }

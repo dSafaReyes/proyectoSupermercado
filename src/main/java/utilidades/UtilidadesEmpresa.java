@@ -12,7 +12,8 @@ public class UtilidadesEmpresa {
     }
 
     public List<Empleado> getMileuristasOrdenadosPorSalario(Empresa empresa) {
-        return empresa.getEmpleados().stream().filter(e -> e.getContrato().getSalarioBase() >= 1000).sorted().toList();
+        Comparator<Empleado> bySueldoAsc = (Empleado e1, Empleado e2) -> Double.compare(e1.getContrato().getSalarioBase(), e2.getContrato().getSalarioBase());
+        return empresa.getEmpleados().stream().filter(e -> e.getContrato().getSalarioBase() >= 1000).sorted(bySueldoAsc).toList();
     }
 
     public double fondoSalarialEmpresa(Empresa empresa) {
@@ -22,7 +23,9 @@ public class UtilidadesEmpresa {
 
     public Empleado getMejorPagado(List<Empresa> empresas) {
         Comparator<Empleado> bySueldoAsc = (Empleado e1, Empleado e2) -> Double.compare(e1.getContrato().getSalarioBase(), e2.getContrato().getSalarioBase());
-        return empresas.stream().map(empresa -> empresa.getEmpleados().stream().sorted(Comparator.comparing(bySueldoAsc)));
+//        return empresas.stream().map(Empresa::getEmpleados).sorted(bySueldoAsc).max().orElseThrow(NoSuchElementException::new);;
+//        return empresas.stream().sorted(bySueldoAsc).map(empresa -> empresa.getEmpleados()).toList();
+        return null;
     }
 
 
@@ -50,6 +53,18 @@ public class UtilidadesEmpresa {
 //        return getEmpleadosPorTipoContrato(empresas.stream().map(e -> e))
 //        return empresas.stream().collect(Collectors.groupingBy(e -> getEmpleadosPorTipoContrato(e)));
 
+    }
+
+
+    public List<Empleado> getEmpleadosPymePracticas(List<Empresa> empresas) {
+        return  empresas.stream()
+                .filter(empresa -> empresa.getTipoEmpresa().equals(TipoEmpresa.PYME))
+                .map(Empresa::getEmpleados)
+                .flatMap(List::stream).toList()
+                .stream()
+                .filter(empleado -> empleado.getContrato().getTipoContrato()
+                        .equals(TipoContrato.PRACTICAS))
+                .toList();
     }
 
 
