@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class UtilidadesCliente {
 
-    public boolean esDniValido(Cliente cliente) {
+    public static boolean esDniValido(Cliente cliente) {
         String dni = cliente.getDni();
         String dniNums = dni.substring(0, dni.length() - 1);
         String dniLetter = dni.substring(dni.length() - 1);

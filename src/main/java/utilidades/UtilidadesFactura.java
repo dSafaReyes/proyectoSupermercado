@@ -25,7 +25,7 @@ public class UtilidadesFactura {
     }
 
     public static double calcularTotalAPagar(Factura factura) {
-        return (calcularBaseFactura(factura) - factura.getDescuento())*factura.getIva();
+        return (calcularBaseFactura(factura) - factura.getDescuento())*(1 + factura.getIva());
     }
 
     public Double gasoTotalCliente(List<Factura> facturas, Cliente cliente) {
@@ -33,8 +33,8 @@ public class UtilidadesFactura {
     }
 
     public static void main(String[] args) {
-        Cliente cliente1 = new Cliente(1, "30278456X", "Marcos", "Ruiz Bellido", "Calle Onza nº 10", TipoCliente.PARTICULAR);
-        Factura factura1 = new Factura(1, "001", 110.0, 10.0, 1.21,0.0, LocalDate.of(2023, 2, 11), true, null, cliente1);
+//        Cliente cliente1 = new Cliente(1, "30278456X", "Marcos", "Ruiz Bellido", "Calle Onza nº 10", TipoCliente.PARTICULAR);
+        Factura factura1 = new Factura(1, "001", 110.0, 10.0, 0.21,0.0, LocalDate.of(2023, 2, 11), true, null, null);
         UtilidadesFactura uf = new UtilidadesFactura();
         System.out.println("Fecha de vencimiento: " + factura1.getFechaVencimiento());
         System.out.println("Fecha actual: " + LocalDate.now());
