@@ -49,4 +49,18 @@ public class Empleado extends Persona {
         this.contrato = contrato;
     }
 
+    @Override
+    public String toString() {
+        return "Empleado{" +
+                "identificador=" + super.getIdentificador() +
+                ", dni='" + super.getDni() + '\'' +
+                ", nombre='" + super.getNombre() + '\'' +
+                ", apellidos='" + super.getApellidos() + '\'' +
+                ", direccion='" + super.getDireccion() + '\'' +
+                ", numTelefono='" + numTelefono + '\'' +
+                ", empresa=" + empresa +
+                ", contrato=" + contrato +
+                '}';
+    }
+
 }

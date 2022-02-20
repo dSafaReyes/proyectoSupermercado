@@ -10,9 +10,10 @@ public class UtilidadesCliente {
         String dni = cliente.getDni();
         String dniNums = dni.substring(0, dni.length() - 1);
         String dniLetter = dni.substring(dni.length() - 1);
-        boolean isLetter = Character.isLetter(dniLetter.charAt(0));
-        boolean allAreNums = Arrays.stream(dniNums.split("")).allMatch(letter -> Character.isDigit(letter.charAt(0)));
-        return allAreNums && isLetter;
+        boolean isLenRigth = dni.length() == 9;
+        boolean isLastCharLetter = Character.isLetter(dniLetter.charAt(0));
+        boolean AreNums = Arrays.stream(dniNums.split("")).allMatch(letter -> Character.isDigit(letter.charAt(0)));
+        return isLenRigth && AreNums && isLastCharLetter;
     }
 
 }

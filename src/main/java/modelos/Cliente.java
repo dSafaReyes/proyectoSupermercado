@@ -45,7 +45,12 @@ public class Cliente extends Persona {
     @Override
     public String toString() {
         return "Cliente{" +
-                "tipoCliente=" + tipoCliente +
+                "identificador=" + super.getIdentificador() +
+                ", dni='" + super.getDni() + '\'' +
+                ", nombre='" + super.getNombre() + '\'' +
+                ", apellidos='" + super.getApellidos() + '\'' +
+                ", direccion='" + super.getDireccion() + '\'' +
+                ", tipoCliente=" + tipoCliente +
                 '}';
     }
 }

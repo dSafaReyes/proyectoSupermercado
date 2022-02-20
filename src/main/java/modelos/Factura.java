@@ -12,12 +12,27 @@ public class Factura {
     private double descuento;
     private double iva;
     private double totalAPagar;
+    private LocalDate fechaEmision;
     private LocalDate fechaVencimiento;
     private boolean pagada;
     private List<LineaFactura> lineaFacturaList;
     private Cliente cliente;
 
     public Factura() {
+    }
+
+    public Factura(int identificador, String codigoFactura, double importeBase, double descuento, double iva, double totalAPagar, LocalDate fechaEmision, LocalDate fechaVencimiento, boolean pagada, List<LineaFactura> lineaFacturaList, Cliente cliente) {
+        this.identificador = identificador;
+        this.codigoFactura = codigoFactura;
+        this.importeBase = importeBase;
+        this.descuento = descuento;
+        this.iva = iva;
+        this.totalAPagar = totalAPagar;
+        this.fechaEmision = fechaEmision;
+        this.fechaVencimiento = fechaVencimiento;
+        this.pagada = pagada;
+        this.lineaFacturaList = lineaFacturaList;
+        this.cliente = cliente;
     }
 
     public Factura(Factura f) {
@@ -27,23 +42,11 @@ public class Factura {
         this.descuento = f.getDescuento();
         this.iva = f.getIva();
         this.totalAPagar = f.getTotalAPagar();
+        this.fechaEmision = f.getFechaEmision();
         this.fechaVencimiento = f.getFechaVencimiento();
         this.pagada = f.isPagada();
         this.lineaFacturaList = f.getLineaFacturaList();
         this.cliente = f.getCliente();
-    }
-
-    public Factura(int identificador, String codigoFactura, double importeBase, double descuento, double iva, double totalAPagar, LocalDate fechaVencimiento, boolean pagada, List<LineaFactura> lineaFacturaList, Cliente cliente) {
-        this.identificador = identificador;
-        this.codigoFactura = codigoFactura;
-        this.importeBase = importeBase;
-        this.descuento = descuento;
-        this.iva = iva;
-        this.totalAPagar = totalAPagar;
-        this.fechaVencimiento = fechaVencimiento;
-        this.pagada = pagada;
-        this.lineaFacturaList = lineaFacturaList;
-        this.cliente = cliente;
     }
 
     public int getIdentificador() {
@@ -94,6 +97,14 @@ public class Factura {
         this.totalAPagar = totalAPagar;
     }
 
+    public LocalDate getFechaEmision() {
+        return fechaEmision;
+    }
+
+    public void setFechaEmision(LocalDate fechaEmision) {
+        this.fechaEmision = fechaEmision;
+    }
+
     public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
     }
@@ -131,12 +142,12 @@ public class Factura {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Factura factura = (Factura) o;
-        return identificador == factura.identificador && Double.compare(factura.importeBase, importeBase) == 0 && Double.compare(factura.descuento, descuento) == 0 && Double.compare(factura.iva, iva) == 0 && Double.compare(factura.totalAPagar, totalAPagar) == 0 && pagada == factura.pagada && Objects.equals(codigoFactura, factura.codigoFactura) && Objects.equals(fechaVencimiento, factura.fechaVencimiento) && Objects.equals(lineaFacturaList, factura.lineaFacturaList) && Objects.equals(cliente, factura.cliente);
+        return identificador == factura.identificador && Double.compare(factura.importeBase, importeBase) == 0 && Double.compare(factura.descuento, descuento) == 0 && Double.compare(factura.iva, iva) == 0 && Double.compare(factura.totalAPagar, totalAPagar) == 0 && pagada == factura.pagada && Objects.equals(codigoFactura, factura.codigoFactura) && Objects.equals(fechaEmision, factura.fechaEmision) && Objects.equals(fechaVencimiento, factura.fechaVencimiento) && Objects.equals(lineaFacturaList, factura.lineaFacturaList) && Objects.equals(cliente, factura.cliente);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(identificador, codigoFactura, importeBase, descuento, iva, totalAPagar, fechaVencimiento, pagada, lineaFacturaList, cliente);
+        return Objects.hash(identificador, codigoFactura, importeBase, descuento, iva, totalAPagar, fechaEmision, fechaVencimiento, pagada, lineaFacturaList, cliente);
     }
 
     @Override
@@ -148,11 +159,11 @@ public class Factura {
                 ", descuento=" + descuento +
                 ", iva=" + iva +
                 ", totalAPagar=" + totalAPagar +
+                ", fechaEmision=" + fechaEmision +
                 ", fechaVencimiento=" + fechaVencimiento +
                 ", pagada=" + pagada +
                 ", lineaFacturaList=" + lineaFacturaList +
                 ", cliente=" + cliente +
                 '}';
     }
-
 }

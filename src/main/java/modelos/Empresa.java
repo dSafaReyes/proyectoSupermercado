@@ -77,7 +77,7 @@ public class Empresa {
         return "Empresa{" +
                 "identificador=" + identificador +
                 ", codigoEmpresa='" + codigoEmpresa + '\'' +
-                ", empleados=" + empleados +
+//                ", empleados=" + getEmpleados() +
                 ", tipoEmpresa=" + tipoEmpresa +
                 '}';
     }
